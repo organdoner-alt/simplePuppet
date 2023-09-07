@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+            .eyelid {
+                
+            }
+        </style>
+    </head>
+<body>
+    <div class="center">
+        <svg width="525" height="525" id="face">
+            <!-- This is the big yellow circle. -->
+            <circle cx="262" cy="262" r="250" stroke="black" stroke-width="4" fill="yellow" />
+            <!-- The whites of the eyes. -->
+            <circle cx="162" cy="200" r="60" stroke="black" stroke-width="4" fill="white" />
+            <circle cx="362" cy="200" r="60" stroke="black" stroke-width="4" fill="white" />
+            <!-- The pupils. -->
+            <circle cx="362" cy="200" r="25" fill="black" />
+            <circle cx="162" cy="200" r="25" fill="black" />
+            <!-- Smile on face. -->
+            <circle cx="262" cy="375" r="75" stroke="black" stroke-width="6" fill="yellow" />
+            <!-- This is the black circle that opens the characters mouth to talk. -->
+            <circle id="mouth" style="visibility: hidden;" cx="262" cy="375" r="76" stroke="black" stroke-width="4" fill="black" />
+            <!-- This covers the top half of the circles that create the mouth. -->
+            <rect x="162" y="275" width="200" height="95" fill="yellow" />
+            <circle id="wideMouth" style="visibility: hidden;" cx="262" cy="375" r="76" stroke="black" stroke-width="4" fill="black" />
+            <!-- Eyelids -->
+            <circle class="eyelid" id="eyelid1" style="visibility: hidden;" cx="162" cy="200" r="60" stroke="black" stroke-width="4" fill="yellow" />
+            <circle class="eyelid" id="eyelid2" style="visibility: hidden;" cx="362" cy="200" r="60" stroke="black" stroke-width="4" fill="yellow" />
+        </svg>
+    </div>
+    <script>
+        //Mouth movement
+        document.body.addEventListener("keydown", openMouth);
+        function openMouth(e)
+        {
+            var div = document.getElementById("mouth");
+            if(e.key == " "){
+                document.getElementById("mouth").style.visibility = "visible";
+            }
+        }
+        document.body.addEventListener("keyup", closeMouth);
+        function closeMouth(e)
+        {
+            var div = document.getElementById("mouth");
+            if(e.key == " "){
+                document.getElementById("mouth").style.visibility = "hidden";
+            }
+        }
+
+        //Making a shocked mouth
+        document.body.addEventListener("keydown", shockedMouth);
+        function shockedMouth(x)
+        {
+            if(x.key == "b"){
+                document.getElementById("wideMouth").style.visibility = "visible";
+            }
+        }
+        document.body.addEventListener("keyup", calmMouth);
+        function calmMouth(e)
+        {
+            var div = document.getElementById("wideMouth");
+            if(e.key == "b"){
+                div.style.visibility = "hidden";
+            }
+        }
+
+        //Blinking eyes
+        document.body.addEventListener("keydown", leftEyeClose);
+        function leftEyeClose(x)
+        {
+            if(x.key == "c"){
+                document.getElementById("eyelid1").style.visibility = "visible";
+            }
+        }
+        document.body.addEventListener("keyup", leftEyeOpen);
+        function leftEyeOpen(e)
+        {
+            var div = document.getElementById("eyelid1");
+            if(e.key == "c"){
+                div.style.visibility = "hidden";
+            }
+        }
+        document.body.addEventListener("keydown", rightEyeClose);
+        function rightEyeClose(x)
+        {
+            if(x.key == "v"){
+                document.getElementById("eyelid2").style.visibility = "visible";
+            }
+        }
+        document.body.addEventListener("keyup", rightEyeOpen);
+        function rightEyeOpen(e)
+        {
+            var div = document.getElementById("eyelid2");
+            if(e.key == "v"){
+                div.style.visibility = "hidden";
+            }
+        }
+        //Blink eyes
+        function blink()
+        {
+            leftEyeClose;
+            rightEyeClose;
+            setTimeout(leftEyeOpen, 5000);
+            setTimeout(rightEyeOpen, 5000);
+        }
+        document.body.addEventListener("keydown", manualBlink);
+        function manualBlink(x)
+        {
+            if(x.key == "x"){
+                blink();
+            }
+        }
+        setInterval(blink, Math.floor(Math.random() * 11))
+    </script>
+</body>
+</html>
